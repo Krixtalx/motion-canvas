@@ -223,7 +223,7 @@ export class Video extends Rect {
     }
 
     if (Math.abs(video.currentTime - time) > 0.2) {
-      this.setCurrentTime(time);
+      //this.setCurrentTime(time);
     } else if (!playing) {
       video.currentTime = time;
     }
