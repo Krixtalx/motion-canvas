@@ -1,6 +1,7 @@
 import {
   BBox,
   DependencyContext,
+  Logger,
   PlaybackState,
   SerializedVector2,
   SignalValue,
@@ -10,10 +11,10 @@ import {
   useLogger,
   useThread,
 } from '@motion-canvas/core';
-import {computed, initial, nodeName, signal} from '../decorators';
-import {DesiredLength} from '../partials';
-import {drawImage} from '../utils';
-import {Rect, RectProps} from './Rect';
+import { computed, initial, nodeName, signal } from '../decorators';
+import { DesiredLength } from '../partials';
+import { drawImage } from '../utils';
+import { Rect, RectProps } from './Rect';
 import reactivePlaybackRate from './__logs__/reactive-playback-rate.md';
 
 export interface VideoProps extends RectProps {
@@ -116,7 +117,7 @@ export class Video extends Rect {
 
   private lastTime = -1;
 
-  public constructor({play, ...props}: VideoProps) {
+  public constructor({ play, ...props }: VideoProps) {
     super(props);
     if (play) {
       this.play();
@@ -223,7 +224,7 @@ export class Video extends Rect {
     }
 
     if (Math.abs(video.currentTime - time) > 0.2) {
-      //this.setCurrentTime(time);
+      this.setCurrentTime(time);
     } else if (!playing) {
       video.currentTime = time;
     }
@@ -238,7 +239,7 @@ export class Video extends Rect {
       const playbackState = this.view().playbackState();
       const video =
         playbackState === PlaybackState.Playing ||
-        playbackState === PlaybackState.Presenting
+          playbackState === PlaybackState.Presenting
           ? this.fastSeekedVideo()
           : this.seekedVideo();
 
