@@ -1,4 +1,5 @@
 import type {MetaField} from '../meta';
+import type {Sound} from '../scenes';
 import type {Project} from './Project';
 import type {RendererResult, RendererSettings} from './Renderer';
 
@@ -63,8 +64,11 @@ export interface Exporter {
    * is rendered. Once `start()` is called, it is guaranteed that the `stop()`
    * method will be called as well. Can be used to initialize any resources that
    * require a clean-up.
+   *
+   * @param sounds - The sounds to be played during the animation.
+   * @param duration - The duration of the animation in frames.
    */
-  start?(): Promise<void>;
+  start?(sounds: Sound[], duration: number): Promise<void>;
 
   /**
    * Export a frame.
@@ -77,6 +81,7 @@ export interface Exporter {
    * @param sceneFrame - The frame number within the scene.
    * @param sceneName - The name of the scene with which the frame is associated.
    * @param signal - An abort signal triggered if the user aborts the rendering.
+   * @param context - A 2D rendering context for the canvas.
    */
   handleFrame(
     canvas: HTMLCanvasElement,
@@ -84,6 +89,7 @@ export interface Exporter {
     sceneFrame: number,
     sceneName: string,
     signal: AbortSignal,
+    context: CanvasRenderingContext2D,
   ): Promise<void>;
 
   /**

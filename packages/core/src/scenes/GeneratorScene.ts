@@ -24,6 +24,7 @@ import {SceneMetadata} from './SceneMetadata';
 import {SceneState} from './SceneState';
 import {Shaders} from './Shaders';
 import {Slides} from './Slides';
+import {Sounds} from './Sounds';
 import {Threadable} from './Threadable';
 import {Variables} from './Variables';
 import {TimeEvents} from './timeEvents';
@@ -47,6 +48,7 @@ export abstract class GeneratorScene<T>
   public readonly timeEvents: TimeEvents;
   public readonly shaders: Shaders;
   public readonly slides: Slides;
+  public readonly sounds: Sounds;
   public readonly variables: Variables;
   public random: Random;
   public creationStack?: string;
@@ -54,6 +56,10 @@ export abstract class GeneratorScene<T>
 
   public get firstFrame() {
     return this.cache.current.firstFrame;
+  }
+
+  public get transitionDuration() {
+    return this.cache.current.transitionDuration;
   }
 
   public get lastFrame() {
@@ -139,6 +145,7 @@ export abstract class GeneratorScene<T>
     this.variables = new Variables(this);
     this.shaders = new Shaders(this, description.sharedWebGLContext);
     this.slides = new Slides(this);
+    this.sounds = new Sounds(this);
 
     this.random = new Random(this.meta.seed.get());
     this.previousOnTop = false;

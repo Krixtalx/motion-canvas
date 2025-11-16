@@ -10,8 +10,11 @@ import {
 import {ComponentChild, render} from 'preact';
 import {Editor} from './Editor';
 import {ProjectData, ProjectSelection} from './ProjectSelection';
-import {ApplicationProvider, PanelsProvider} from './contexts';
-import {ShortcutsProvider} from './contexts/shortcuts';
+import {
+  ApplicationProvider,
+  PanelsProvider,
+  ShortcutsProvider,
+} from './contexts';
 import GridPlugin from './plugin/GridPlugin';
 import {projectNameSignal} from './signals';
 import {getItem, setItem} from './utils';
@@ -21,6 +24,8 @@ const ExperimentalHooks = [
   'provider',
   'previewOverlay',
   'presenterOverlay',
+  'inspectors',
+  'shortcuts',
 ] as const;
 
 function renderRoot(vnode: ComponentChild) {
